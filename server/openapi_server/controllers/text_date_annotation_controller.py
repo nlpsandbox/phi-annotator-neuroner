@@ -7,7 +7,7 @@ from openapi_server.models.text_date_annotation_request import \
 from openapi_server.models.text_date_annotation import TextDateAnnotation
 from openapi_server.models.text_date_annotation_response import \
     TextDateAnnotationResponse  # noqa: E501
-from openapi_server import neuro_model as model
+from openapi_server.neuroner import neuroner
 
 def create_text_date_annotations():  # noqa: E501
     """Annotate dates in a clinical note
@@ -21,7 +21,7 @@ def create_text_date_annotations():  # noqa: E501
             annotation_request = TextDateAnnotationRequest.from_dict(
                 connexion.request.get_json())
             note = annotation_request._note
-            matches = model.predict(note._text)
+            matches = neuroner.annotate(note._text)
 
             annotations = []
             add_date_annotation(annotations, matches)

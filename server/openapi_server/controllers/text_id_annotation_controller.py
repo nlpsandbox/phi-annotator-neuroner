@@ -4,7 +4,7 @@ from openapi_server.models.error import Error  # noqa: E501
 from openapi_server.models.text_id_annotation_request import TextIdAnnotationRequest  # noqa: E501
 from openapi_server.models.text_id_annotation import TextIdAnnotation
 from openapi_server.models.text_id_annotation_response import TextIdAnnotationResponse  # noqa: E501
-from openapi_server import neuro_model as model
+from openapi_server.neuroner import neuroner
 
 def create_text_id_annotations(text_id_annotation_request=None):  # noqa: E501
     """Annotate IDs in a clinical note
@@ -20,7 +20,7 @@ def create_text_id_annotations(text_id_annotation_request=None):  # noqa: E501
         try:
             annotation_request = TextIdAnnotationRequest.from_dict(connexion.request.get_json())  # noqa: E501
             note = annotation_request._note
-            matches = model.predict(note._text)
+            matches = neuroner.annotate(note._text)
 
             annotations = []
             add_id_annotation(annotations, matches)

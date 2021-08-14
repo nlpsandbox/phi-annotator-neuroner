@@ -6,7 +6,7 @@ from openapi_server.models.error import Error  # noqa: E501
 from openapi_server.models.text_location_annotation import TextLocationAnnotation  # noqa: E501
 from openapi_server.models.text_location_annotation_request import TextLocationAnnotationRequest  # noqa: E501
 from openapi_server.models.text_location_annotation_response import TextLocationAnnotationResponse  # noqa: E501
-from openapi_server import neuro_model as model
+from openapi_server.neuroner import neuroner
 
 def create_text_location_annotations():  # noqa: E501
     """Annotate locations in a clinical note
@@ -25,7 +25,7 @@ def create_text_location_annotations():  # noqa: E501
             annotation_request = TextLocationAnnotationRequest.from_dict(
                 connexion.request.get_json())
             note = annotation_request._note
-            matches = model.predict(note._text)
+            matches = neuroner.annotate(note._text)
 
             annotations = []
             add_annotations(annotations, matches)

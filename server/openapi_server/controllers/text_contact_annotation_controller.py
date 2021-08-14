@@ -4,7 +4,7 @@ from openapi_server.models.error import Error  # noqa: E501
 from openapi_server.models.text_contact_annotation_request import TextContactAnnotationRequest  # noqa: E501
 from openapi_server.models.text_contact_annotation import TextContactAnnotation
 from openapi_server.models.text_contact_annotation_response import TextContactAnnotationResponse  # noqa: E501
-from openapi_server import neuro_model as model
+from openapi_server.neuroner import neuroner
 
 def create_text_contact_annotations(text_contact_annotation_request=None):  # noqa: E501
     """Annotate contacts in a clinical note
@@ -18,7 +18,7 @@ def create_text_contact_annotations(text_contact_annotation_request=None):  # no
             annotation_request = TextContactAnnotationRequest.from_dict(
                 connexion.request.get_json())
             note = annotation_request._note
-            matches = model.predict(note._text)
+            matches = neuroner.annotate(note._text)
 
             annotations = []
             add_contact_annotation(annotations, matches)
