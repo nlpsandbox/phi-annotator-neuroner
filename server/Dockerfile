@@ -1,4 +1,4 @@
-FROM python:3.6
+FROM python:3.9.6
 
 ENV APP_DIR=/opt/app
 
