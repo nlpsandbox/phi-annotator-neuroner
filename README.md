@@ -91,7 +91,7 @@ You can stop the container run with `Ctrl+C`, followed by `docker compose down`.
 Create a Conda environment.
 
 ```console
-conda create --name phi-annotator-neuroner python=3.9 -y
+conda create --name phi-annotator-neuroner python=3.7 -y
 conda activate phi-annotator-neuroner
 ```
 
