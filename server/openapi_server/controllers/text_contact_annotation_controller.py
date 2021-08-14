@@ -17,13 +17,14 @@ def create_text_contact_annotations(text_contact_annotation_request=None):  # no
         try:
             annotation_request = TextContactAnnotationRequest.from_dict(connexion.request.get_json())  # noqa: E501
             note = annotation_request._note
-            annotations = []
             matches = model.predict(note._text)
-            
+
+            annotations = []
             add_contact_annotation(annotations, matches)
             res = TextContactAnnotationResponse(annotations)
             status = 200
         except Exception as error:
+            print(error)
             status = 500
             res = Error("Internal error", status, str(error))
     return res, status
@@ -35,6 +36,8 @@ def add_contact_annotation(annotations, matches):
     annotations array specified.
     """
     for match in matches:
+        # TODO: Are there non-straightforward types that we can support?
+        # TODO: Use "other" when applicable
         if match['type'] in ["PHONE","URL","EMAIL","FAX"]:
             annotations.append(TextContactAnnotation(
                 start=match['start'],
