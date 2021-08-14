@@ -16,8 +16,6 @@ def create_text_date_annotations():  # noqa: E501
 
     :rtype: TextDateAnnotations
     """
-    res = None
-    status = None
     if connexion.request.is_json:
         try:
             annotation_request = TextDateAnnotationRequest.from_dict(
@@ -30,9 +28,11 @@ def create_text_date_annotations():  # noqa: E501
             res = TextDateAnnotationResponse(annotations)
             status = 200
         except Exception as error:
-            print(error)
             status = 500
             res = Error("Internal error", status, str(error))
+    else:
+        status = 400
+        res = Error("Bad request", status, "Missing body")
     return res, status
 
 

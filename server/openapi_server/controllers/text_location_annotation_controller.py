@@ -22,16 +22,21 @@ def create_text_location_annotations():  # noqa: E501
     status = None
     if connexion.request.is_json:
         try:
-            annotation_request = TextLocationAnnotationRequest.from_dict(connexion.request.get_json())  # noqa: E501
+            annotation_request = TextLocationAnnotationRequest.from_dict(
+                connexion.request.get_json())
             note = annotation_request._note
-            annotations = []
             matches = model.predict(note._text)
+
+            annotations = []
             add_annotations(annotations, matches)
             res = TextLocationAnnotationResponse(annotations)
             status = 200
         except Exception as error:
             status = 500
             res = Error("Internal error", status, str(error))
+    else:
+        status = 400
+        res = Error("Bad request", status, "Missing body")
     return res, status
 
 
@@ -41,6 +46,7 @@ def add_annotations(annotations, matches):
     to the annotations array specified.
     """
     for match in matches:
+        # TODO Clarify types
         if match['type'] in ["CITY","COUNTRY","STATE","STREET"]:
             annotations.append(
                 TextLocationAnnotation(

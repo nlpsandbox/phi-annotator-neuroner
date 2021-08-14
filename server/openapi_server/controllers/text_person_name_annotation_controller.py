@@ -18,12 +18,16 @@ def create_text_person_name_annotations():  # noqa: E501
     status = None
     if connexion.request.is_json:
         try:
-            annotation_request = TextPersonNameAnnotationRequest.from_dict(connexion.request.get_json())  # noqa: E501
-            note = annotation_request._note  # noqa: E501
+            annotation_request = TextPersonNameAnnotationRequest.from_dict(
+                connexion.request.get_json())
+            note = annotation_request._note
             annotations = []
             res = TextPersonNameAnnotationResponse(annotations)
             status = 200
         except Exception as error:
             status = 500
             res = Error("Internal error", status, str(error))
+    else:
+        status = 400
+        res = Error("Bad request", status, "Missing body")
     return res, status

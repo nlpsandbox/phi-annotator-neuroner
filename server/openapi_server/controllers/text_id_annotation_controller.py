@@ -20,23 +20,26 @@ def create_text_id_annotations(text_id_annotation_request=None):  # noqa: E501
         try:
             annotation_request = TextIdAnnotationRequest.from_dict(connexion.request.get_json())  # noqa: E501
             note = annotation_request._note
-            annotations = []
             matches = model.predict(note._text)
+
+            annotations = []
             add_id_annotation(annotations, matches)
             res = TextIdAnnotationResponse(annotations)
             status = 200
         except Exception as error:
             status = 500
-            print(error)
             res = Error("Internal error", status, str(error))
+    else:
+        status = 400
+        res = Error("Bad request", status, "Missing body")
     return res, status
-
 
 def add_id_annotation(annotations, matches):
     """
     Converts matches to TextIdAnnotation objects and adds them to the
     annotations array specified.
     """
+    # TODO Clarify the source for this list
     id_map = {
         "BIOID":"bio_id",
         "IDNUM": "id_number",
@@ -47,7 +50,7 @@ def add_id_annotation(annotations, matches):
         "DEVICE": "device",
         "ACCOUNT": "account",
         "LICENSE": "license"
-    } 
+    }
     for match in matches:
         if match['type'] in id_map.keys():
             annotations.append(TextIdAnnotation(
@@ -55,5 +58,5 @@ def add_id_annotation(annotations, matches):
                 length=len(match['text']),
                 text=match['text'],
                 id_type=id_map[match['type']],
-                confidence=95.5
+                confidence=50
             ))

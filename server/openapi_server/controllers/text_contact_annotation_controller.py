@@ -15,7 +15,8 @@ def create_text_contact_annotations(text_contact_annotation_request=None):  # no
     """
     if connexion.request.is_json:
         try:
-            annotation_request = TextContactAnnotationRequest.from_dict(connexion.request.get_json())  # noqa: E501
+            annotation_request = TextContactAnnotationRequest.from_dict(
+                connexion.request.get_json())
             note = annotation_request._note
             matches = model.predict(note._text)
 
@@ -24,9 +25,11 @@ def create_text_contact_annotations(text_contact_annotation_request=None):  # no
             res = TextContactAnnotationResponse(annotations)
             status = 200
         except Exception as error:
-            print(error)
             status = 500
             res = Error("Internal error", status, str(error))
+    else:
+        status = 400
+        res = Error("Bad request", status, "Missing body")
     return res, status
 
 
