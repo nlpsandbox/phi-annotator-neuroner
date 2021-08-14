@@ -4,4 +4,4 @@ pyneuroner[cpu]==1.0.8
 python_dateutil==2.8.1
 spacy==3.1.1
 swagger-ui-bundle==0.0.8
-tensorflow==1.15
+tensorflow==2.4.2
