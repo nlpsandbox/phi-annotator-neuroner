@@ -28,7 +28,7 @@ def create_text_location_annotations():  # noqa: E501
             matches = neuroner.annotate(note._text)
 
             annotations = []
-            add_annotations(annotations, matches)
+            add_location_annotations(annotations, matches)
             res = TextLocationAnnotationResponse(annotations)
             status = 200
         except Exception as error:
@@ -40,13 +40,14 @@ def create_text_location_annotations():  # noqa: E501
     return res, status
 
 
-def add_annotations(annotations, matches):
+def add_location_annotations(annotations, matches):
     """
     Converts matches to TextLocationAnnotation objects and adds them
     to the annotations array specified.
     """
     for match in matches:
         # TODO Clarify types
+        # TODO Does not annotate Seattle?
         if match['type'] in ["CITY","COUNTRY","STATE","STREET"]:
             annotations.append(
                 TextLocationAnnotation(

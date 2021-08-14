@@ -23,7 +23,7 @@ def create_text_id_annotations(text_id_annotation_request=None):  # noqa: E501
             matches = neuroner.annotate(note._text)
 
             annotations = []
-            add_id_annotation(annotations, matches)
+            add_id_annotations(annotations, matches)
             res = TextIdAnnotationResponse(annotations)
             status = 200
         except Exception as error:
@@ -34,7 +34,7 @@ def create_text_id_annotations(text_id_annotation_request=None):  # noqa: E501
         res = Error("Bad request", status, "Missing body")
     return res, status
 
-def add_id_annotation(annotations, matches):
+def add_id_annotations(annotations, matches):
     """
     Converts matches to TextIdAnnotation objects and adds them to the
     annotations array specified.

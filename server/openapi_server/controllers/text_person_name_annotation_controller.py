@@ -21,7 +21,7 @@ def create_text_person_name_annotations():  # noqa: E501
             annotation_request = TextPersonNameAnnotationRequest.from_dict(
                 connexion.request.get_json())
             note = annotation_request._note
-            # Neuroner does not implement person name annotation
+            # Neuroner does not support person name annotation
 
             annotations = []
             res = TextPersonNameAnnotationResponse(annotations)

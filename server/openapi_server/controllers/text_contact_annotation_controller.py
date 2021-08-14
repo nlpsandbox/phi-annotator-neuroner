@@ -21,7 +21,7 @@ def create_text_contact_annotations(text_contact_annotation_request=None):  # no
             matches = neuroner.annotate(note._text)
 
             annotations = []
-            add_contact_annotation(annotations, matches)
+            add_contact_annotations(annotations, matches)
             res = TextContactAnnotationResponse(annotations)
             status = 200
         except Exception as error:
@@ -33,7 +33,7 @@ def create_text_contact_annotations(text_contact_annotation_request=None):  # no
     return res, status
 
 
-def add_contact_annotation(annotations, matches):
+def add_contact_annotations(annotations, matches):
     """
     Converts matches to TextContactAnnotation objects and adds them to the
     annotations array specified.

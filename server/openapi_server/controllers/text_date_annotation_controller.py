@@ -24,7 +24,7 @@ def create_text_date_annotations():  # noqa: E501
             matches = neuroner.annotate(note._text)
 
             annotations = []
-            add_date_annotation(annotations, matches)
+            add_date_annotations(annotations, matches)
             res = TextDateAnnotationResponse(annotations)
             status = 200
         except Exception as error:
@@ -36,7 +36,7 @@ def create_text_date_annotations():  # noqa: E501
     return res, status
 
 
-def add_date_annotation(annotations, matches):
+def add_date_annotations(annotations, matches):
     """
     Converts matches to TextDateAnnotation objects and adds them to the
     annotations array specified.
