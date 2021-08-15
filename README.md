@@ -20,6 +20,16 @@ This repository packages [NeuroNER] as an [NLP Sandbox PHI annotator]. The
 performance of this tool can be viewed and compared to the performance of other
 PHI annotators on [NLPSandbox.io].
 
+Annotations supported by NeuroNER:
+
+Annotation  | Schema                     | Supported
+------------|----------------------------|----------
+Contact     | [TextContactAnnotation]    | Yes
+Date        | [TextDateAnnotation]       | Yes
+ID          | [TextIdAnnotation]         | Yes
+Location    | [TextLocationAnnotation]   | Yes
+Person Name | [TextPersonNameAnnotation] | No
+
 
 ## Table of contents
 
@@ -173,3 +183,8 @@ Thinking about contributing to this project? Get started by reading our
 [NLP Sandbox PHI Annotator example]: https://github.com/nlpsandbox/phi-annotator-example
 [citation guidelines given by the authors of NeuroNER]: https://github.com/Franck-Dernoncourt/NeuroNER#citation
 [citation guidelines]: https://www.synapse.org/#!Synapse:syn22277123/wiki/609146
+[TextContactAnnotation]: https://github.com/nlpsandbox/nlpsandbox-schemas/blob/main/openapi/commons/components/schemas/TextContactAnnotation.yaml
+[TextDateAnnotation]: https://github.com/nlpsandbox/nlpsandbox-schemas/blob/main/openapi/commons/components/schemas/TextDateAnnotation.yaml
+[TextIdAnnotation]: https://github.com/nlpsandbox/nlpsandbox-schemas/blob/main/openapi/commons/components/schemas/TextIdAnnotation.yaml
+[TextLocationAnnotation]: https://github.com/nlpsandbox/nlpsandbox-schemas/blob/main/openapi/commons/components/schemas/TextLocationAnnotation.yaml
+[TextPersonNameAnnotation]: https://github.com/nlpsandbox/nlpsandbox-schemas/blob/main/openapi/commons/components/schemas/TextPersonNameAnnotation.yaml
